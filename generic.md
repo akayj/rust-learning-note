@@ -5,8 +5,8 @@
 
 ## 特性
 特性(trait) 更接近Java中的接口 (interface)。
-**共同点**: 行为规范, 可以标识有什么方法。
-**不同点**: _TODO_
+- **共同点**: 行为规范, 可以标识有什么方法。
+- **不同点**: _TODO_
 
 ```rust
 trait Descriptive {
