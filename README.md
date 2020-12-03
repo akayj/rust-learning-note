@@ -1,5 +1,4 @@
-# Rust Leaning Note
-Rust自学笔记
+# Rust自学笔记
 
 ## 目录
 - [所有权](./ownership.md)
