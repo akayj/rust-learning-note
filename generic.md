@@ -8,6 +8,7 @@
 - **共同点**: 规范方法。
 - **不同点**: trait可以定义默认方法, interface 不可以。
 
+### 定义特性
 ```rust
 trait Descriptive {
 	// 只规范方法，没有定义
@@ -33,4 +34,31 @@ impl Descriptive for Person {
 		format!("{} {}", self.name, self.age)
 	}
 }
+```
+
+### 作为参数
+- 可以将特性作为函数参数传递
+
+``` rust
+fn output(object: impl Descriptive) {
+	println!("{}", object.describe());
+}
+
+// 范型方式, 与以上一样的效果
+fn output<T: Descriptive>(object: T) {
+	println!("{}", object.describe());
+}
+
+fn output_two<T: Descriptive>(arg1: T, arg2: T) {
+	println!("{}", arg1.describe());
+	println!("{}", arg2.describe());
+}
+```
+
+- 多个特性通过 __+__ 叠加
+``` rust
+fn notify(item: impl Summary + Display)
+
+// or
+fn notify<T: Summary + Display>(item: T)
 ```
