@@ -22,7 +22,9 @@ trait Descriptive {
 ```
 __Descriptive__ 要求实现者必须有 `describe(&self) -> String` 方法。
 
-实现一个结构体, 格式: `impl <特性名> for <所实现的类型名>`
+为一个结构体实现特性, 格式:
+`impl <特性名> for <所实现的类型名>`
+
 ```rust
 struct Person {
 	name: String,
@@ -71,4 +73,36 @@ fn some_function<T: Display + Clone, U: Clone + Debug)(t: T, u: U);
 fn some_function<T, U>(t: T, u: U) ->i32
 	where T: Display + Clone,
 		  U: Clone + Debug
+```
+
+### 作为返回值
+``` rust
+fn person() -> impl Descriptive {
+	Person {
+		name: String::from("foo"),
+		age: 24,
+	}
+}
+```
+只接受实现了该特性的对象作为返回值, 且返回值类型要一致， 例如, A, B 都实现了特性
+``` rust
+// 错误: 因为可能返回A, 也可能是B, 类型不一致
+fn some_function(bool bl) -> impl Descriptive {
+	if bl {
+		return A{};
+	} else {
+		return B{};
+	}
+}
+```
+
+### 有条件实现方法
+impl 可以限制实现方法的前置约束:
+``` rust
+struct A<T> {}
+
+// A<T> 必须在T已经实现B和C特性后, 才能有效实现 impl 块
+impl<T: B + C> A<T> {
+	fn d(&self) {}
+}
 ```
